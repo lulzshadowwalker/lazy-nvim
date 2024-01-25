@@ -35,12 +35,25 @@ return {
   "ray-x/aurora",
   "kvrohit/rasmus.nvim",
   "kvrohit/mellow.nvim",
+  "Mofiqul/vscode.nvim",
+  "sainnhe/everforest",
+  "morhetz/gruvbox",
+  "olivercederborg/poimandres.nvim",
+  "projekt0n/github-nvim-theme",
+  "sainnhe/sonokai",
+  "rose-pine/neovim",
+  "catppuccin/vim",
+  "tjdevries/colorbuddy.vim", 
+  "tjdevries/gruvbuddy.nvim",
 
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "mellow",
+      -- colorscheme = "catppuccin",
     },
+    config = function ()
+      require('colorbuddy').colorscheme('gruvbuddy')
+    end
   },
 
   {
@@ -52,4 +65,23 @@ return {
       { "<leader>bs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Buffer Symbols" },
     },
   },
+
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      autoformat = false,
+    },
+  },
+
+  -- { "echasnovski/mini.pairs", enabled = false },
+
+  { "rcarriga/nvim-notify", enabled = false }, 
+
+  {
+    "Eandrju/cellular-automaton.nvim",
+    keys= {
+      {"<leader>fml", "<cmd>CellularAutomaton make_it_rain<cr>", desc = "fuck my life" },
+      {"<leader>fl", "<cmd>CellularAutomaton game_of_life<cr>", desc = "fuck" },
+    }
+  }
 }
