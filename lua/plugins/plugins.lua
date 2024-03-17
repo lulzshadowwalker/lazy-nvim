@@ -43,7 +43,7 @@ return {
   "sainnhe/sonokai",
   "rose-pine/neovim",
   "catppuccin/vim",
-  "tjdevries/colorbuddy.vim", 
+  "tjdevries/colorbuddy.vim",
   "tjdevries/gruvbuddy.nvim",
 
   {
@@ -51,18 +51,18 @@ return {
     opts = {
       -- colorscheme = "catppuccin",
     },
-    config = function ()
-      require('colorbuddy').colorscheme('gruvbuddy')
-    end
+    --   config = function ()
+    --     require('colorbuddy').colorscheme('gruvbuddy')
+    --   end
   },
 
   {
     "nvim-telescope/telescope.nvim",
     keys = {
-      { "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Current Buffer Fuzzy Find" },
-      { "<leader>fs", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
-      { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
-      { "<leader>bs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Buffer Symbols" },
+      { "<leader>/",  "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Current Buffer Fuzzy Find" },
+      { "<leader>fs", "<cmd>Telescope find_files<cr>",                desc = "Find Files" },
+      { "<leader>fg", "<cmd>Telescope live_grep<cr>",                 desc = "Live Grep" },
+      { "<leader>bs", "<cmd>Telescope lsp_document_symbols<cr>",      desc = "Buffer Symbols" },
     },
   },
 
@@ -75,13 +75,36 @@ return {
 
   -- { "echasnovski/mini.pairs", enabled = false },
 
-  { "rcarriga/nvim-notify", enabled = false }, 
+  { "rcarriga/nvim-notify", enabled = false },
 
   {
     "Eandrju/cellular-automaton.nvim",
-    keys= {
-      {"<leader>fml", "<cmd>CellularAutomaton make_it_rain<cr>", desc = "fuck my life" },
-      {"<leader>fl", "<cmd>CellularAutomaton game_of_life<cr>", desc = "fuck" },
-    }
+    keys = {
+      { "<leader>fml", "<cmd>CellularAutomaton make_it_rain<cr>", desc = "fuck my life" },
+      { "<leader>fl",  "<cmd>CellularAutomaton game_of_life<cr>", desc = "fuck" },
+    },
+  },
+
+  {
+    "stevearc/conform.nvim",
+    opts = function()
+      ---@class ConformOpts
+      local opts = {
+        ---@type table<string, conform.FormatterUnit[]>
+        formatters_by_ft = {
+          javascript = { { "prettierd", "prettier" } },
+          typescript = { { "prettierd", "prettier" } },
+          javascriptreact = { { "prettierd", "prettier" } },
+          typescriptreact = { { "prettierd", "prettier" } },
+        },
+      }
+      return opts
+    end,
+  },
+
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" }
   }
 }
