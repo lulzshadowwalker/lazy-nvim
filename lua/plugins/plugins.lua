@@ -49,28 +49,30 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      -- colorscheme = "catppuccin",
+      colorscheme = "gruvbox",
     },
-    --   config = function ()
-    --     require('colorbuddy').colorscheme('gruvbuddy')
-    --   end
+    -- config = function ()
+    --   require('colorbuddy').colorscheme('gruvbuddy')
+    -- end
   },
 
   {
     "nvim-telescope/telescope.nvim",
     keys = {
-      { "<leader>/",  "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Current Buffer Fuzzy Find" },
-      { "<leader>fs", "<cmd>Telescope find_files<cr>",                desc = "Find Files" },
-      { "<leader>fg", "<cmd>Telescope live_grep<cr>",                 desc = "Live Grep" },
-      { "<leader>bs", "<cmd>Telescope lsp_document_symbols<cr>",      desc = "Buffer Symbols" },
+      { "<leader>/", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Current Buffer Fuzzy Find" },
+      { "<leader>fs", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
+      { "<leader>fg", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },
+      { "<leader>bs", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Buffer Symbols" },
     },
-  },
-
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      autoformat = false,
-    },
+    config = function()
+      require("telescope").setup({
+        pickers = {
+          colorscheme = {
+            enable_preview = true,
+          },
+        },
+      })
+    end,
   },
 
   -- { "echasnovski/mini.pairs", enabled = false },
@@ -78,33 +80,36 @@ return {
   { "rcarriga/nvim-notify", enabled = false },
 
   {
-    "Eandrju/cellular-automaton.nvim",
-    keys = {
-      { "<leader>fml", "<cmd>CellularAutomaton make_it_rain<cr>", desc = "fuck my life" },
-      { "<leader>fl",  "<cmd>CellularAutomaton game_of_life<cr>", desc = "fuck" },
-    },
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" },
   },
 
   {
-    "stevearc/conform.nvim",
-    opts = function()
-      ---@class ConformOpts
-      local opts = {
-        ---@type table<string, conform.FormatterUnit[]>
-        formatters_by_ft = {
-          javascript = { { "prettierd", "prettier" } },
-          typescript = { { "prettierd", "prettier" } },
-          javascriptreact = { { "prettierd", "prettier" } },
-          typescriptreact = { { "prettierd", "prettier" } },
-        },
-      }
-      return opts
+    "Exafunction/codeium.vim",
+    event = "BufEnter",
+    config = function()
+      vim.keymap.set("i", "<C-g>", function()
+        return vim.fn["codeium#Accept"]()
+      end, { expr = true })
+      vim.keymap.set("i", "<c-x>", function()
+        return vim.fn["codeium#Clear"]()
+      end, { expr = true })
+      vim.keymap.set("n", "<leader>;", function()
+        if vim.g.codeium_enabled == true then
+          vim.cmd("CodeiumDisable")
+        else
+          vim.cmd("CodeiumEnable")
+        end
+      end, { noremap = true, desc = "Toggle Codeium active" })
     end,
   },
 
   {
-    "ThePrimeagen/harpoon",
-    branch = "harpoon2",
-    dependencies = { "nvim-lua/plenary.nvim" }
-  }
+    "Eandrju/cellular-automaton.nvim",
+    keys = {
+      { "<leader>fml", "<cmd>CellularAutomaton make_it_rain<cr>", desc = "fuck my life" },
+      { "<leader>fl", "<cmd>CellularAutomaton game_of_life<cr>", desc = "fuck" },
+    },
+  },
 }
